@@ -13,13 +13,29 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        List<Integer> integers = new ArrayList<>();
+
+        ArrayList<Token> tokens = new ArrayList<>();
         while (scanner.hasNext()) {
-            if (scanner.hasNextInt()) {
-                integers.add(scanner.nextInt());
-            } else {
-                scanner.next();
+//            System.out.println(scanner.nextLine());
+            char[] line = scanner.nextLine().toCharArray();
+            String num = new String();
+            for(int i=0;i< line.length;i++){
+                boolean error=false;
+                String str= new String();
+                str+=line;
+                if(str.matches("[0-9]")){
+                    num+=a;
+                }else if(a==' '){
+                    tokens.add(new Token("INT",num));
+                    break;
+                }
+                if(!str.matches("[0-9]")&&(str!=".")){
+
+                }
             }
+            System.out.println(num);
+
+
         }
     }
 }
