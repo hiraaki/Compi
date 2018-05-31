@@ -1,27 +1,194 @@
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Lex {
-
-    ArrayList<Token> tokens = new ArrayList();
-    List<String> palavrasreservadas = new ArrayList(){
-        {
-            add("if");
-            add("else");
-            add("while");
-            add("for");
-            add("switch");
-            add("case");
-            add("break");
-            add("int");
-            add("double");
-            add("bool");
-            add("true");
-            add("false");
-            add("ProgramVar");
-            add("ProgramBody");
-            add("print");
-            add("scan");
-            add("begin");
-            add("end");
-
+    private ArrayList<Token> tokens;
+    private ArrayList<String> palavrasreservadas;
+    private ArrayList<String> oplogicos;
+    private ArrayList<String> oparitimeticos;
+    private ArrayList<String> oprelacionais;
+    private ArrayList<String> opatribuicao;
+    private Path filePath;
+    private Scanner scanner;
+    public Lex(String file) {
+        this.filePath = Paths.get(file);
+        this.scanner = null;
+        try {
+            scanner = new Scanner(this.filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    };
+        this.tokens = new ArrayList<>();
+        this.palavrasreservadas = new ArrayList<>(){
+            {
+                add("if");
+                add("else");
+                add("while");
+                add("for");
+                add("switch");
+                add("case");
+                add("break");
+                add("int");
+                add("double");
+                add("bool");
+                add("true");
+                add("false");
+                add("ProgramVar");
+                add("ProgramBody");
+                add("print");
+                add("scan");
+                add("begin");
+                add("end");
+
+            }
+        };
+        this.oparitimeticos= new ArrayList<>(){
+            {
+                add("+");
+                add("-");
+                add("/");
+                add("*");
+            }
+        };
+        this.oplogicos = new ArrayList<>(){
+            {
+                add("||");
+                add("&&");
+                add("!");
+                add("^");
+            }
+        };
+        this.oprelacionais = new ArrayList<>(){
+            {
+                add("==");
+                add("!=");
+                add("<=");
+                add(">=");
+                add(">");
+                add("<");
+            }
+        };
+        this.opatribuicao= new ArrayList<>(){
+            {
+                add("=");
+                add("++");
+            }
+        };
+    }
+
+    public void getTokens(){
+
+        int count=1;
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            ArrayList<String> palavras = new ArrayList<>();
+            String str= new String();
+            for(int i=0;i<line.length();i++){
+
+                if(line.charAt(i)==' '){
+                    if(!str.isEmpty()) {
+                        palavras.add(str);
+                        str=new String();
+                    }
+                }else if (i==line.length()-1){
+                    str+=line.charAt(i);
+                    if(!str.isEmpty()) {
+                        palavras.add(str);
+                        str=new String();
+                    }
+                }else if(line.charAt(i)=='+'){
+                    if(!str.isEmpty()) {
+                        palavras.add(str);
+                        str=new String();
+                    }
+                    if (line.charAt(i+1)=='+'||line.charAt(i+1)=='='){
+                        str+=line.charAt(i);
+                        i++;
+                        str+=line.charAt(i);
+                        palavras.add(str);
+                        str=new String();
+                    }else{
+                        str+=line.charAt(i);
+                        palavras.add(str);
+                        str=new String();
+                    }
+                }else if(line.charAt(i)=='=') {
+                    if(!str.isEmpty()) {
+                        palavras.add(str);
+                        str=new String();
+                    }
+                    if (line.charAt(i+1)=='='){
+                        str+=line.charAt(i);
+                        i++;
+                        str+=line.charAt(i);
+                        palavras.add(str);
+                        str=new String();
+                    }else{
+                        str+=line.charAt(i);
+                        palavras.add(str);
+                        str=new String();
+                    }
+                }else if(line.charAt(i)==','){
+                    if(!str.isEmpty()) {
+                        palavras.add(str);
+                        str=new String();
+                    }
+                    str+=line.charAt(i);
+                    palavras.add(str);
+                    str=new String();
+
+                }else if(line.charAt(i)==';') {
+                    if (!str.isEmpty()) {
+                        palavras.add(str);
+                        str = new String();
+                    }
+                    str += line.charAt(i);
+                    palavras.add(str);
+                    str = new String();
+
+                }else{
+                    str+=line.charAt(i);
+                }
+
+            }
+            for(String s:palavras){
+
+                System.out.println(s);
+                if(isInt(s)){
+                    System.out.println("INT "+s);
+                }
+                if(isDouble(s)){
+                    System.out.println("DOUBLE "+s);
+                }
+            }
+
+            count++;
+        }
+    }
+    public boolean isInt(String Num){
+        return Num.matches("\\d+");
+    }
+    public boolean isDouble(String Num){
+        return Num.matches("\\d+(\\.\\d+)+");
+    }
+    public boolean isChar(String Char){
+        return Char.matches("[a-zA-Z]");
+    }
+    public boolean isReserved(String Num){
+        return this.oplogicos.contains(Num);
+    }
+    public boolean isLogic(String Num){
+        return this.oplogicos.contains(Num);
+    }
+    public boolean isAritimetico(String Num){
+        return this.oparitimeticos.contains(Num);
+    }
+    public boolean isRelacional(String Num){
+        return this.oparitimeticos.contains(Num);
+    }
+
+
 }

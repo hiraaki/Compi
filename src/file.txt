@@ -1,10 +1,5 @@
-11 1 32 1 32 13 2 12 3 1
+i++ +a+ = 21312.32131
+dsa;321
++321,dsa
 dsa
-dsa
-d
-sa
-dsa
-dsa
-ds
-ad
-as
+dsa dsa
