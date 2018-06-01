@@ -9,36 +9,5 @@ public class Main {
 
         Lex lex= new Lex("src/file.txt");
         lex.getTokens();
-
-
-
-
-
-
-
-
-//        ArrayList<Token> tokens = new ArrayList<>();
-//        while (scanner.hasNext()) {
-////            System.out.println(scanner.nextLine());
-//            char[] line = scanner.nextLine().toCharArray();
-//            String num = new String();
-//            for(int i=0;i< line.length;i++){
-//                boolean error=false;
-//                String str= new String();
-//                str+=line;
-//                if(str.matches("[0-9]")){
-//                    num+=a;
-//                }else if(a==' '){
-//                    tokens.add(new Token("INT",num));
-//                    break;
-//                }
-//                if(!str.matches("[0-9]")&&(str!=".")){
-//
-//                }
-//            }
-//            System.out.println(num);
-//
-//
-//        }
     }
 }

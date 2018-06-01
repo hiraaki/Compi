@@ -12,6 +12,8 @@ public class Lex {
     private ArrayList<String> oprelacionais;
     private ArrayList<String> opatribuicao;
     private ArrayList<String> opIncremento;
+    private ArrayList<String> ctrlBoloco;
+    private ArrayList<String> stmtSeparador;
     private Path filePath;
     private Scanner scanner;
     public Lex(String file) {
@@ -82,7 +84,22 @@ public class Lex {
                 add("++");
             }
         };
-
+        this.ctrlBoloco= new ArrayList<>(){
+            {
+                add("{");
+                add("}");
+                add("(");
+                add(")");
+                add("[");
+                add("]");
+            }
+        };
+        this.stmtSeparador = new ArrayList<>(){
+            {
+                add(",");
+                add(";");
+            }
+        };
     }
 
     public void getTokens(){
@@ -308,29 +325,48 @@ public class Lex {
                 }
 
             }
-            for(String s:palavras){
-
-
+            for(int i=0;i<palavras.size();i++){
+                String s=palavras.get(i);
                 if(isInt(s)){
                     System.out.println("INT "+s);
+                    this.tokens.add(new Token("INT",s));
                 }else if(isDouble(s)){
                     System.out.println("DOUBLE "+s);
+                    this.tokens.add(new Token("DOUBLE",s));
                 }else if(isChar(s)){
                     System.out.println("CHAR "+s);
+                    this.tokens.add(new Token("CHAR",s));
                 }else if(isAritimetico(s)){
                     System.out.println("OPA "+s);
+                    this.tokens.add(new Token("OPA",s));
                 }else if(isLogic(s)){
                     System.out.println("OPL "+s);
+                    this.tokens.add(new Token("OPL",s));
                 }else if(isRelacional(s)){
                     System.out.println("OPR "+s);
+                    this.tokens.add(new Token("OPR",s));
                 }else if(isReserved(s)){
                     System.out.println("RESERVED "+s);
+                    this.tokens.add(new Token("RESERVED",s));
                 }else if(isatrib(s)){
                     System.out.println("ATRIB "+s);
+                    this.tokens.add(new Token("ATRIB ",s));
                 }else if(isInc(s)){
                     System.out.println("INC "+s);
+                    this.tokens.add(new Token("INC ",s));
+                }else if (isctrlBoloco(s)){
+                    System.out.println("CTRLBL "+s);
+                    this.tokens.add(new Token("CTRLBL ",s));
+                }else if (isstmtSeparador(s)){
+                    System.out.println("SEPAR "+s);
+                    this.tokens.add(new Token("SEPAR ",s));
+                }else if(isId(s)){
+                    System.out.println("ID "+s);
+                    this.tokens.add(new Token("ID ",s));
                 }else{
-                    System.out.println(s);
+
+                    System.out.println("ERROR:"+s+" Não é Reconecido Pela LP. Linha:"+count+" Objeto:"+(i+1));
+                    this.tokens.add(new Token("ERROR","Não Reconecido Pela LP Linha:"+count+" Objeto:"+i));
                 }
 
             }
@@ -365,6 +401,14 @@ public class Lex {
     public boolean isInc(String op){
         return this.opIncremento.contains(op);
     }
-
+    public boolean isctrlBoloco(String op){
+        return this.ctrlBoloco.contains(op);
+    }
+    public boolean isstmtSeparador(String op){
+        return this.stmtSeparador.contains(op);
+    }
+    public boolean isId(String str){
+        return str.matches("^[a-zA-Z](\\w)*");
+    }
 
 }
