@@ -1,4 +1,4 @@
-i++ +a+ = 21312.32131 & BATATA && KIKO
+'a' == i++ +a+ = 21312.32131 & BATATA && KIKO
 dsa;321
 +321,dsa
 dsa

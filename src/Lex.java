@@ -227,6 +227,8 @@ public class Lex {
                         palavras.add(str);
                         str = new String();
                     }
+                }else if(line.charAt(i)=='/'){
+
                 }else{
                     str+=line.charAt(i);
                 }
@@ -237,10 +239,24 @@ public class Lex {
                 System.out.println(s);
                 if(isInt(s)){
                     System.out.println("INT "+s);
-                }
-                if(isDouble(s)){
+                }else if(isDouble(s)){
                     System.out.println("DOUBLE "+s);
+                }else if(isChar(s)){
+                    System.out.println("CHAR "+s);
                 }
+                if(isAritimetico(s)){
+                    System.out.println("OPA "+s);
+                }
+                if(isLogic(s)){
+                    System.out.println("OPL "+s);
+                }
+                if(isRelacional(s)){
+                    System.out.println("OPR "+s);
+                }
+                if(isReserved(s)){
+                    System.out.println("RESERVED "+s);
+                }
+
             }
 
             count++;
@@ -253,19 +269,22 @@ public class Lex {
         return Num.matches("\\d+(\\.\\d+)+");
     }
     public boolean isChar(String Char){
-        return Char.matches("[a-zA-Z]");
+        return Char.matches("'[a-zA-Z]'");
     }
-    public boolean isReserved(String Num){
-        return this.oplogicos.contains(Num);
+    public boolean isReserved(String reserv){
+        return this.palavrasreservadas.contains(reserv);
     }
-    public boolean isLogic(String Num){
-        return this.oplogicos.contains(Num);
+    public boolean isLogic(String op){
+        return this.oplogicos.contains(op);
     }
-    public boolean isAritimetico(String Num){
-        return this.oparitimeticos.contains(Num);
+    public boolean isAritimetico(String op){
+        return this.oparitimeticos.contains(op);
     }
-    public boolean isRelacional(String Num){
-        return this.oparitimeticos.contains(Num);
+    public boolean isRelacional(String op){
+        return this.oprelacionais.contains(op);
+    }
+    public boolean isatrib(String op){
+        return this.opatribuicao.contains(op);
     }
 
 
