@@ -11,6 +11,7 @@ public class Lex {
     private ArrayList<String> oparitimeticos;
     private ArrayList<String> oprelacionais;
     private ArrayList<String> opatribuicao;
+    private ArrayList<String> opIncremento;
     private Path filePath;
     private Scanner scanner;
     public Lex(String file) {
@@ -74,9 +75,14 @@ public class Lex {
         this.opatribuicao= new ArrayList<>(){
             {
                 add("=");
+            }
+        };
+        this.opIncremento = new ArrayList<>(){
+            {
                 add("++");
             }
         };
+
     }
 
     public void getTokens(){
@@ -227,8 +233,27 @@ public class Lex {
                         palavras.add(str);
                         str = new String();
                     }
-                }else if(line.charAt(i)=='/'){
+                }else if(line.charAt(i)== (char)39){
+                    if (!str.isEmpty()) {
+                        palavras.add(str);
+                        str = new String();
+                    }
+                    String aux = new String();
+                    aux+=line.charAt(i + 1);
+                    if (aux.matches("[a-zA-Z]")) {
+                        if(line.charAt(i+2)== (char)39) {
+                            str += line.charAt(i);
+                            i++;
+                            str += line.charAt(i);
+                            i++;
+                            str += line.charAt(i);
 
+                            palavras.add(str);
+                            str = new String();
+                        }
+                    } else {
+                        str += line.charAt(i);
+                    }
                 }else{
                     str+=line.charAt(i);
                 }
@@ -236,25 +261,27 @@ public class Lex {
             }
             for(String s:palavras){
 
-                System.out.println(s);
+
                 if(isInt(s)){
                     System.out.println("INT "+s);
                 }else if(isDouble(s)){
                     System.out.println("DOUBLE "+s);
                 }else if(isChar(s)){
                     System.out.println("CHAR "+s);
-                }
-                if(isAritimetico(s)){
+                }else if(isAritimetico(s)){
                     System.out.println("OPA "+s);
-                }
-                if(isLogic(s)){
+                }else if(isLogic(s)){
                     System.out.println("OPL "+s);
-                }
-                if(isRelacional(s)){
+                }else if(isRelacional(s)){
                     System.out.println("OPR "+s);
-                }
-                if(isReserved(s)){
+                }else if(isReserved(s)){
                     System.out.println("RESERVED "+s);
+                }else if(isatrib(s)){
+                    System.out.println("ATRIB "+s);
+                }else if(isInc(s)){
+                    System.out.println("INC "+s);
+                }else{
+                    System.out.println(s);
                 }
 
             }
@@ -285,6 +312,9 @@ public class Lex {
     }
     public boolean isatrib(String op){
         return this.opatribuicao.contains(op);
+    }
+    public boolean isInc(String op){
+        return this.opIncremento.contains(op);
     }
 
 
