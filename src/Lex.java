@@ -149,6 +149,84 @@ public class Lex {
                     palavras.add(str);
                     str = new String();
 
+                }else if(line.charAt(i)=='|'){
+                    if(!str.isEmpty()) {
+                        palavras.add(str);
+                        str=new String();
+                    }if(line.charAt(i+1)=='|'){
+                        str += line.charAt(i);
+                        i++;
+                        str+=line.charAt(i);
+                        palavras.add(str);
+                        str = new String();
+                    }else{
+                        str+=line.charAt(i);
+                        palavras.add(str);
+                        str = new String();
+                    }
+                }else if(line.charAt(i)=='>'){
+                    if(!str.isEmpty()){
+                        palavras.add(str);
+                        str=new String();
+                    }if(line.charAt(i+1)=='='){
+                        str += line.charAt(i);
+                        i++;
+                        str+=line.charAt(i);
+                        palavras.add(str);
+                        str=new String();
+                    }else{
+                        str+=line.charAt(i);
+                        palavras.add(str);
+                        str=new String();
+                    }
+                }else if(line.charAt(i)=='<') {
+                    if (!str.isEmpty()) {
+                        palavras.add(str);
+                        str = new String();
+                    }
+                    if (line.charAt(i + 1) == '=') {
+                        str += line.charAt(i);
+                        i++;
+                        str += line.charAt(i);
+                        palavras.add(str);
+                        str = new String();
+                    } else {
+                        str += line.charAt(i);
+                        palavras.add(str);
+                        str = new String();
+                    }
+                }else if(line.charAt(i)=='!') {
+                    if (!str.isEmpty()) {
+                        palavras.add(str);
+                        str = new String();
+                    }
+                    if (line.charAt(i + 1) == '=') {
+                        str += line.charAt(i);
+                        i++;
+                        str += line.charAt(i);
+                        palavras.add(str);
+                        str = new String();
+                    } else {
+                        str += line.charAt(i);
+                        palavras.add(str);
+                        str = new String();
+                    }
+                }else if(line.charAt(i)=='&') {
+                    if (!str.isEmpty()) {
+                        palavras.add(str);
+                        str = new String();
+                    }
+                    if (line.charAt(i + 1) == '&') {
+                        str += line.charAt(i);
+                        i++;
+                        str += line.charAt(i);
+                        palavras.add(str);
+                        str = new String();
+                    } else {
+                        str += line.charAt(i);
+                        palavras.add(str);
+                        str = new String();
+                    }
                 }else{
                     str+=line.charAt(i);
                 }
