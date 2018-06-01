@@ -99,12 +99,6 @@ public class Lex {
                         palavras.add(str);
                         str=new String();
                     }
-                }else if (i==line.length()-1){
-                    str+=line.charAt(i);
-                    if(!str.isEmpty()) {
-                        palavras.add(str);
-                        str=new String();
-                    }
                 }else if(line.charAt(i)=='+'){
                     if(!str.isEmpty()) {
                         palavras.add(str);
@@ -233,15 +227,15 @@ public class Lex {
                         palavras.add(str);
                         str = new String();
                     }
-                }else if(line.charAt(i)== (char)39){
+                }else if(line.charAt(i)== (char)39) {
                     if (!str.isEmpty()) {
                         palavras.add(str);
                         str = new String();
                     }
                     String aux = new String();
-                    aux+=line.charAt(i + 1);
+                    aux += line.charAt(i + 1);
                     if (aux.matches("[a-zA-Z]")) {
-                        if(line.charAt(i+2)== (char)39) {
+                        if (line.charAt(i + 2) == (char) 39) {
                             str += line.charAt(i);
                             i++;
                             str += line.charAt(i);
@@ -253,6 +247,61 @@ public class Lex {
                         }
                     } else {
                         str += line.charAt(i);
+                    }
+                }else if(line.charAt(i)=='('){
+                    if (!str.isEmpty()) {
+                        palavras.add(str);
+                        str = new String();
+                    }
+                    str += line.charAt(i);
+                    palavras.add(str);
+                    str = new String();
+                }
+                else if(line.charAt(i)==')'){
+                    if (!str.isEmpty()) {
+                        palavras.add(str);
+                        str = new String();
+                    }
+                    str += line.charAt(i);
+                    palavras.add(str);
+                    str = new String();
+                }else if(line.charAt(i)=='{'){
+                    if (!str.isEmpty()) {
+                        palavras.add(str);
+                        str = new String();
+                    }
+                    str += line.charAt(i);
+                    palavras.add(str);
+                    str = new String();
+                }else if(line.charAt(i)=='}'){
+                    if (!str.isEmpty()) {
+                        palavras.add(str);
+                        str = new String();
+                    }
+                    str += line.charAt(i);
+                    palavras.add(str);
+                    str = new String();
+                }else if(line.charAt(i)=='['){
+                    if (!str.isEmpty()) {
+                        palavras.add(str);
+                        str = new String();
+                    }
+                    str += line.charAt(i);
+                    palavras.add(str);
+                    str = new String();
+                }else if(line.charAt(i)==']'){
+                    if (!str.isEmpty()) {
+                        palavras.add(str);
+                        str = new String();
+                    }
+                    str += line.charAt(i);
+                    palavras.add(str);
+                    str = new String();
+                }else if (i==line.length()-1){
+                    str+=line.charAt(i);
+                    if(!str.isEmpty()) {
+                        palavras.add(str);
+                        str=new String();
                     }
                 }else{
                     str+=line.charAt(i);
