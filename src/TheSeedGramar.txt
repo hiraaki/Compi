@@ -1,0 +1,16 @@
+→ <program> → <ProgramVar> <ProgramBody>;
+	<ProgramVar> → ProgramVar: "{" <assigm> "}"
+		<assigm> → <type> <var> "=" {num*|<var>} | <assigm> ";"
+			<var> → <char> {<char>|<num>}*
+				<char> → 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O'| 'P' | 'Q' | 'R'| 'S'|'T' | 'U' | 'V' | 'W' | 'X' | 'Y'| 'Z' | 'a'| 'b' | 'c' | 'd' | 'e'| 'f' | 'g'| 'h' | 'i'| 'j' | 'k' | 'l' | 'm'| 'n' | 'o' |'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w'| 'x' | 'y' | 'z'
+				<num> → '0'|'1'|'2'|'3'|'4'|'5'|'6'|'7'|'8'|'9'
+			<type> → "int" | "double" | "bool" | "real"
+	<ProgramBody> → "begin {"<stm>"}end"	
+		<stm> → <term>|<stm><term>
+		<term> → <atrib>
+			| if "("<expL>")" "{" <stm> "}"
+			| switch"("<var>"){"<case_term>"}"
+			| while"(" <expL> "){" <stmt> "}"
+			| for"("<id> ";" <expR> ";" <id> ")" "{" <stmt> "}"
+			| print ("<text>",<value>);
+			| scan "("<prim>","<value>")";
