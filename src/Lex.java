@@ -39,7 +39,7 @@ public class Lex {
                 add("bool");
                 add("true");
                 add("false");
-                add("ProgramVar");
+                add("ProgramVar:");
                 add("ProgramBody");
                 add("print");
                 add("scan");

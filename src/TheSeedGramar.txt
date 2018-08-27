@@ -1,56 +1,65 @@
-PROGRAM -> PROGRAMVAR PROGRAMBODY ;
-
-PROGRAMVAR -> PROGRAMVAR : { ASSIGM }
-
-ASSIGM -> TYPE id = { num } ;
-
-ASSIGM ->TYPE id = { id } ; ASSIGM
-
-TYPE -> int
-TYPE -> double
-TYPE -> bool
-TYPE -> real
-
-PROGRAMBODY -> begin { STM } end
-
-STM -> TERM
-STM -> STM TERM
-
+S  -> PROGRAMVAR PROGRAMBODY
+PROGRAMVAR -> ProgramVar: { ASSIGN }
+ASSIGN -> ASSTERM ASSIGN'
+ASSIGN' ->  ASSTERM ASSIGN'
+ASSIGN' -> ''
+ASSTERM -> int id = ATRIBINT
+ASSTERM -> double id = ATRIBDOUBLE
+ASSTERM -> bool id = ATRIBBOOL
+ASSTERM -> char id = ATRIBCHAR
+ATRIBINT -> Int ;
+ATRIBDOUBLE -> Double ;
+ATRIBBOOL -> Bool ;
+ATRIBCHAR -> Char ;
+PROGRAMBODY -> ProgramBody begin { STM } end
+STM -> TERM STM'
+STM -> ''
+STM' -> TERM STM'
+STM' -> ''
 TERM -> ATRIB
-TERM -> if ( EXPL ) { STM }
-TERM -> switch ( id ){ CASE_TERM }
-TERM -> while ( EXPL ){ STM }
-TERM -> for ( id ; EXPR ; id ) { STM }
+TERM -> if ( EXP ) { STM } ELSESTM
+TERM -> switch ( id ) { CASETERM }
+TERM -> while ( EXP ) { STM }
+TERM -> for ( FORATRIB EXP ; FORCOUNT ) { STM }
 TERM -> print ( " char " , id ) ;
 TERM -> scan ( TYPE , id ) ;
-
-EXPL -> id && LTERM
-EXPL -> id || LTERM
-EXPL -> id ^ LTERM
-EXPL -> !EXPL
-EXPL -> !id
-LTERM -> id EXPL
-LTERM -> id
-
-
-EXPR -> id == RTERM
-EXPR -> id != RTERM
-EXPR -> id >= RTERM
-EXPR -> id <= RTERM
-EXPR -> id > RTERM
-EXPR -> id < RTERM
-RTERM -> (EXPB)
-RTERM -> RFACT
-RFACT -> EXPR
-RFACT -> id
-
-
-EXPB -> id + BTERM
-EXPB -> id - BTERM
-EXPB -> id * BTERM
-EXPB -> id / BTERM
-BTERM -> ( EXPB )
-BTERM -> BFACT
-BFACT -> EXPB
-BFACT -> id
-
+TYPE -> int
+TYPE -> double
+TYPE -> boolean
+TYPE -> char
+ELSESTM -> else { STM }
+ELSESTM -> ''
+CASETERM -> case: CASEFACT { STM }
+CASEFACT -> id
+CASEFACT -> num
+CASEFACT -> Char
+FORCOUNT -> id FORCOUNT'
+FORCOUNT' -> --
+FORCOUNT' -> ++
+FORCOUNT' -> + num
+FORCOUNT' -> - num
+FORATRIB -> ASSTERM
+EXP -> EXPT EXP'
+EXP' -> OPB EXPT EXP'
+EXP' -> OPL EXPT EXP'
+EXP' -> OPR EXPT EXP'
+EXP' -> ''
+EXPT -> ( EXP )
+EXPT -> ! ( EXP )
+EXPT -> id
+EXPT -> num
+OPB -> +
+OPB -> -
+OPB -> *
+OPB -> /
+OPL -> ||
+OPL -> &&
+OPL -> ^
+OPR -> >
+OPR -> <
+OPR -> ==
+OPR -> !=
+OPR -> >=
+OPR -> <=
+ATRIB -> id ATRIB'
+ATRIB' -> = EXP ;

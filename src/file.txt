@@ -1,4 +1,15 @@
-333-333-333
-+321,dsa
-dsa
-dsa dsa
+ProgramVar: {
+    int id = Int ;
+    int id = Int ;
+} ProgramBody
+    begin {
+        id = id * id ;
+        if ( id && id ) {
+            for ( int id = Int ; id < id ; id ++ ) {
+                id = id * id ;
+                }
+        } else {
+            while ( id > id ) {
+            }
+        }
+    }end
