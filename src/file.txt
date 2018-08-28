@@ -10,7 +10,7 @@ ProgramVar: {
         }
     } else {
         while ( id > id ) {
-            id = id * id ;
+            id2 = 'a' * id ;
         }
     }
 } end

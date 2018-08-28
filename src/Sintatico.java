@@ -715,12 +715,9 @@ public class Sintatico {
             }
             c++;
             if(c>100){
+                System.out.println("Não Aceito");
                 break;
             }
         }
-
     }
-
-
-
 }
