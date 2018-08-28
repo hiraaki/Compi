@@ -1,10 +1,15 @@
 public class Token {
     String type;
     String Value;
+    int Line;
+    int Column;
 
-    public Token(String type, String value) {
+    public Token(String type, String value,int Line, int Column) {
         this.type = type;
-        Value = value;
+        this.Value = value;
+        this.Line = Line;
+        this.Column = Column;
+
     }
     public String getType() {
         return type;

@@ -1,8 +1,8 @@
 ProgramVar: {
     char id1 = 'a';
-    int id2 =1234;
+    bool id2 = true;
     double id3= 123.41;
-} ProgramBody begin{
+} ProgramBody begin {
     id1=id2 * 123;
     if( id && id ){
         for ( int id = 1230 ; id < id ; id ++ ) {
@@ -10,7 +10,7 @@ ProgramVar: {
         }
     } else {
         while ( id > id ) {
-            id2 = 'a' * id ;
+            id2 = (a * id) && ( a * b) ;
         }
     }
 } end

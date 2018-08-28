@@ -5,8 +5,6 @@ public class Sintatico {
     ArrayList <Token> tokens;
     ArrayList <State> states;
 
-
-
     public Sintatico(ArrayList<Token> tokens) {
         this.tokens = tokens;
         this.states = new ArrayList<>();
@@ -671,23 +669,49 @@ public class Sintatico {
                 serchfor = token.Value;
             }
             State selected = new State();
-
+            boolean st=false;
             for(State state : this.states){
                 if(state.name.equals(pilha.peek())){
                     selected = state;
+                    st=true;
                     break;
                 }
             }
-
-
+            if(!st){
+                System.out.println("Esperado :" + pilha.peek() + " mas encontrado: " +token.Value + " (Linha:"+token.Line + "Palavra:"+token.Column+")");
+                break;
+            }
+            boolean intnf = false;
             for (Interactions interactions: selected.interactions){
                 if(interactions.terminal.equals(serchfor)){
                     pilha.pop();
                     for (int i=interactions.stackList.size()-1;i>=0;i--){
                         pilha.push(interactions.stackList.get(i));
                     }
+                    intnf = true;
                     break;
                 }
+            }
+            if(!intnf){
+                System.out.print("Eperado: ");
+                String spected = null;
+//                for(Interactions interactions: selected.interactions){
+//                    spected = (interactions.terminal);
+//                    System.out.print(spected+",");
+//                }
+
+                for(Interactions interactions: selected.interactions){
+                    if((selected.name=="STM")||(selected.name=="STM'")){
+                        spected = interactions.terminal;
+                        break;
+                    }else if(interactions.terminal!="VAZIO"){
+                        spected = interactions.terminal;
+                    }
+                }
+
+                System.out.print(spected);
+                System.out.print(" mas encontrado:"+token.Value+" (Linha:"+token.Line+"Palavra:"+token.Column + ")");
+                break;
             }
             System.out.print(pilha);
             System.out.print("\t"+tokens.get(0).Value+"\n");

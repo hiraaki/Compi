@@ -14,6 +14,7 @@ public class Lex {
     private ArrayList<String> opIncremento;
     private ArrayList<String> ctrlBoloco;
     private ArrayList<String> stmtSeparador;
+    private ArrayList<String> atribbool;
     private Path filePath;
     private Scanner scanner;
 
@@ -26,6 +27,15 @@ public class Lex {
             e.printStackTrace();
         }
         this.tokens = new ArrayList<>();
+
+        this.atribbool = new ArrayList<>(){
+            {
+                add("true");
+                add("false");
+            }
+        };
+
+
         this.palavrasreservadas = new ArrayList<>(){
             {
                 add("if");
@@ -39,8 +49,6 @@ public class Lex {
                 add("double");
                 add("bool");
                 add("char");
-                add("true");
-                add("false");
                 add("ProgramVar:");
                 add("ProgramBody");
                 add("print");
@@ -335,43 +343,46 @@ public class Lex {
                 String s=palavras.get(i);
                 if(isInt(s)){
                     //System.out.println("INT "+s);
-                    this.tokens.add(new Token("Int",s));
+                    this.tokens.add(new Token("Int",s,count,i));
                 }else if(isDouble(s)){
                     //System.out.println("DOUBLE "+s);
-                    this.tokens.add(new Token("Double",s));
+                    this.tokens.add(new Token("Double",s,count,i));
                 }else if(isChar(s)){
                     //System.out.println("CHAR "+s);
-                    this.tokens.add(new Token("Char",s));
+                    this.tokens.add(new Token("Char",s,count,i));
                 }else if(isAritimetico(s)){
                     //System.out.println("OPB "+s);
-                    this.tokens.add(new Token("OPB",s));
+                    this.tokens.add(new Token("OPB",s,count,i));
                 }else if(isLogic(s)){
                     //System.out.println("OPL "+s);
-                    this.tokens.add(new Token("OPL",s));
+                    this.tokens.add(new Token("OPL",s,count,i));
                 }else if(isRelacional(s)){
                     //System.out.println("OPR "+s);
-                    this.tokens.add(new Token("OPR",s));
+                    this.tokens.add(new Token("OPR",s,count,i));
                 }else if(isReserved(s)){
                     //System.out.println("RESERVED "+s);
-                    this.tokens.add(new Token("RESERVED",s));
+                    this.tokens.add(new Token("RESERVED",s,count,i));
                 }else if(isatrib(s)){
                     //System.out.println("ATRIB "+s);
-                    this.tokens.add(new Token("ATRIB ",s));
+                    this.tokens.add(new Token("ATRIB ",s,count,i));
                 }else if(isInc(s)){
                     //System.out.println("INC "+s);
-                    this.tokens.add(new Token("INC ",s));
+                    this.tokens.add(new Token("INC ",s,count,i));
                 }else if (isctrlBoloco(s)){
                     //System.out.println("CTRLBL "+s);
-                    this.tokens.add(new Token("CTRLBL ",s));
+                    this.tokens.add(new Token("CTRLBL ",s,count,i));
                 }else if (isstmtSeparador(s)){
                     //System.out.println("SEPAR "+s);
-                    this.tokens.add(new Token("SEPAR ",s));
+                    this.tokens.add(new Token("SEPAR ",s,count,i));
+                }else if(isbool(s)){
+                    //System.out.println("Bool "+s);
+                    this.tokens.add(new Token("Bool",s,count,i));
                 }else if(isId(s)){
                     //System.out.println("ID "+s);
-                    this.tokens.add(new Token("id",s));
+                    this.tokens.add(new Token("id",s,count,i));
                 }else{
                     System.out.println("ERROR:"+s+" Não é Reconecido Pela LP. Linha:"+count+" Objeto:"+(i+1));
-                    this.tokens.add(new Token("ERROR","Não Reconecido Pela LP Linha:"+count+" Objeto:"+i));
+                    this.tokens.add(new Token("ERROR","Não Reconecido Pela LP Linha:"+count+" Objeto:"+i,count,i));
                 }
 
             }
@@ -414,6 +425,9 @@ public class Lex {
     }
     public boolean isId(String str){
         return str.matches("^[a-zA-Z](\\w)*");
+    }
+    public boolean isbool(String str){
+        return this.atribbool.contains(str);
     }
 
 }
