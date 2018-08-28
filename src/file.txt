@@ -1,5 +1,6 @@
 ProgramVar: {
-    int id = Int ;
+    char id = 'a' ;
+    int id = 321 ;
     int id = Int ;
 } ProgramBody
     begin {

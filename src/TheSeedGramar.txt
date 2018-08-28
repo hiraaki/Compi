@@ -1,5 +1,7 @@
-S  -> PROGRAMVAR PROGRAMBODY
+PROGRAM -> PROGRAMVAR PROGRAMBODY
+
 PROGRAMVAR -> ProgramVar: { ASSIGN }
+
 ASSIGN -> ASSTERM ASSIGN'
 ASSIGN' ->  ASSTERM ASSIGN'
 ASSIGN' -> ''
@@ -7,15 +9,19 @@ ASSTERM -> int id = ATRIBINT
 ASSTERM -> double id = ATRIBDOUBLE
 ASSTERM -> bool id = ATRIBBOOL
 ASSTERM -> char id = ATRIBCHAR
+
 ATRIBINT -> Int ;
 ATRIBDOUBLE -> Double ;
 ATRIBBOOL -> Bool ;
 ATRIBCHAR -> Char ;
+
 PROGRAMBODY -> ProgramBody begin { STM } end
+
 STM -> TERM STM'
 STM -> ''
 STM' -> TERM STM'
 STM' -> ''
+
 TERM -> ATRIB
 TERM -> if ( EXP ) { STM } ELSESTM
 TERM -> switch ( id ) { CASETERM }
@@ -23,22 +29,29 @@ TERM -> while ( EXP ) { STM }
 TERM -> for ( FORATRIB EXP ; FORCOUNT ) { STM }
 TERM -> print ( " char " , id ) ;
 TERM -> scan ( TYPE , id ) ;
+
 TYPE -> int
 TYPE -> double
-TYPE -> boolean
+TYPE -> bool
 TYPE -> char
+
+
 ELSESTM -> else { STM }
 ELSESTM -> ''
+
 CASETERM -> case: CASEFACT { STM }
 CASEFACT -> id
 CASEFACT -> num
 CASEFACT -> Char
+
 FORCOUNT -> id FORCOUNT'
 FORCOUNT' -> --
 FORCOUNT' -> ++
 FORCOUNT' -> + num
 FORCOUNT' -> - num
+
 FORATRIB -> ASSTERM
+
 EXP -> EXPT EXP'
 EXP' -> OPB EXPT EXP'
 EXP' -> OPL EXPT EXP'
@@ -48,18 +61,22 @@ EXPT -> ( EXP )
 EXPT -> ! ( EXP )
 EXPT -> id
 EXPT -> num
+
 OPB -> +
 OPB -> -
 OPB -> *
 OPB -> /
+
 OPL -> ||
 OPL -> &&
 OPL -> ^
+
 OPR -> >
 OPR -> <
 OPR -> ==
 OPR -> !=
 OPR -> >=
 OPR -> <=
+
 ATRIB -> id ATRIB'
 ATRIB' -> = EXP ;

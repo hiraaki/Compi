@@ -329,16 +329,16 @@ public class Lex {
                 String s=palavras.get(i);
                 if(isInt(s)){
                     System.out.println("INT "+s);
-                    this.tokens.add(new Token("INT",s));
+                    this.tokens.add(new Token("Int",s));
                 }else if(isDouble(s)){
                     System.out.println("DOUBLE "+s);
-                    this.tokens.add(new Token("DOUBLE",s));
+                    this.tokens.add(new Token("Double",s));
                 }else if(isChar(s)){
                     System.out.println("CHAR "+s);
-                    this.tokens.add(new Token("CHAR",s));
+                    this.tokens.add(new Token("Char",s));
                 }else if(isAritimetico(s)){
-                    System.out.println("OPA "+s);
-                    this.tokens.add(new Token("OPA",s));
+                    System.out.println("OPB "+s);
+                    this.tokens.add(new Token("OPB",s));
                 }else if(isLogic(s)){
                     System.out.println("OPL "+s);
                     this.tokens.add(new Token("OPL",s));
@@ -362,7 +362,7 @@ public class Lex {
                     this.tokens.add(new Token("SEPAR ",s));
                 }else if(isId(s)){
                     System.out.println("ID "+s);
-                    this.tokens.add(new Token("ID ",s));
+                    this.tokens.add(new Token("id",s));
                 }else{
 
                     System.out.println("ERROR:"+s+" Não é Reconecido Pela LP. Linha:"+count+" Objeto:"+(i+1));
