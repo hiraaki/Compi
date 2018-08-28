@@ -16,6 +16,7 @@ public class Lex {
     private ArrayList<String> stmtSeparador;
     private Path filePath;
     private Scanner scanner;
+
     public Lex(String file) {
         this.filePath = Paths.get(file);
         this.scanner = null;
@@ -37,6 +38,7 @@ public class Lex {
                 add("int");
                 add("double");
                 add("bool");
+                add("char");
                 add("true");
                 add("false");
                 add("ProgramVar:");
@@ -102,7 +104,11 @@ public class Lex {
         };
     }
 
-    public void getTokens(){
+    public ArrayList<Token> geTokens(){
+        return tokens;
+    }
+
+    public void setTokens(){
 
         int count=1;
         while (scanner.hasNext()) {
@@ -328,43 +334,42 @@ public class Lex {
             for(int i=0;i<palavras.size();i++){
                 String s=palavras.get(i);
                 if(isInt(s)){
-                    System.out.println("INT "+s);
+                    //System.out.println("INT "+s);
                     this.tokens.add(new Token("Int",s));
                 }else if(isDouble(s)){
-                    System.out.println("DOUBLE "+s);
+                    //System.out.println("DOUBLE "+s);
                     this.tokens.add(new Token("Double",s));
                 }else if(isChar(s)){
-                    System.out.println("CHAR "+s);
+                    //System.out.println("CHAR "+s);
                     this.tokens.add(new Token("Char",s));
                 }else if(isAritimetico(s)){
-                    System.out.println("OPB "+s);
+                    //System.out.println("OPB "+s);
                     this.tokens.add(new Token("OPB",s));
                 }else if(isLogic(s)){
-                    System.out.println("OPL "+s);
+                    //System.out.println("OPL "+s);
                     this.tokens.add(new Token("OPL",s));
                 }else if(isRelacional(s)){
-                    System.out.println("OPR "+s);
+                    //System.out.println("OPR "+s);
                     this.tokens.add(new Token("OPR",s));
                 }else if(isReserved(s)){
-                    System.out.println("RESERVED "+s);
+                    //System.out.println("RESERVED "+s);
                     this.tokens.add(new Token("RESERVED",s));
                 }else if(isatrib(s)){
-                    System.out.println("ATRIB "+s);
+                    //System.out.println("ATRIB "+s);
                     this.tokens.add(new Token("ATRIB ",s));
                 }else if(isInc(s)){
-                    System.out.println("INC "+s);
+                    //System.out.println("INC "+s);
                     this.tokens.add(new Token("INC ",s));
                 }else if (isctrlBoloco(s)){
-                    System.out.println("CTRLBL "+s);
+                    //System.out.println("CTRLBL "+s);
                     this.tokens.add(new Token("CTRLBL ",s));
                 }else if (isstmtSeparador(s)){
-                    System.out.println("SEPAR "+s);
+                    //System.out.println("SEPAR "+s);
                     this.tokens.add(new Token("SEPAR ",s));
                 }else if(isId(s)){
-                    System.out.println("ID "+s);
+                    //System.out.println("ID "+s);
                     this.tokens.add(new Token("id",s));
                 }else{
-
                     System.out.println("ERROR:"+s+" Não é Reconecido Pela LP. Linha:"+count+" Objeto:"+(i+1));
                     this.tokens.add(new Token("ERROR","Não Reconecido Pela LP Linha:"+count+" Objeto:"+i));
                 }

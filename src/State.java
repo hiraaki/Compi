@@ -4,6 +4,9 @@ public class State {
     String name;
     ArrayList <Interactions> interactions;
 
+    public State() {
+    }
+
     public State(String name, ArrayList<Interactions> interactions) {
         this.name = name;
         this.interactions = interactions;

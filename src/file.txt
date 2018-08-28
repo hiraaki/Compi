@@ -1,16 +1,16 @@
 ProgramVar: {
-    char id = 'a' ;
-    int id = 321 ;
-    int id = Int ;
-} ProgramBody
-    begin {
-        id = id * id ;
-        if ( id && id ) {
-            for ( int id = Int ; id < id ; id ++ ) {
-                id = id * id ;
-                }
-        } else {
-            while ( id > id ) {
-            }
+    char id1 = 'a';
+    int id2 =1234;
+    double id3= 123.41;
+} ProgramBody begin{
+    id1=id2 * 123;
+    if( id && id ){
+        for ( int id = 1230 ; id < id ; id ++ ) {
+            id = id * id ;
         }
-    }end
+    } else {
+        while ( id > id ) {
+            id = id * id ;
+        }
+    }
+} end

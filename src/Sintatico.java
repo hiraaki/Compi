@@ -5,9 +5,12 @@ public class Sintatico {
     ArrayList <Token> tokens;
     ArrayList <State> states;
 
+
+
     public Sintatico(ArrayList<Token> tokens) {
         this.tokens = tokens;
         this.states = new ArrayList<>();
+
 
         ArrayList <String> stacklist = new ArrayList<String>(){
             {
@@ -29,7 +32,7 @@ public class Sintatico {
             }
         };
         interactions = new ArrayList<>();
-        interactions.add( new Interactions("ProgramVar",stacklist));
+        interactions.add( new Interactions("ProgramVar:",stacklist));
         state = new State("PROGRAMVAR", interactions);
         this.states.add(state);
 
@@ -105,17 +108,6 @@ public class Sintatico {
         };
         interactions.add( new Interactions("char",stacklist ));
         state = new State("ASSTERM",interactions);
-        this.states.add(state);
-
-        stacklist = new ArrayList<>(){
-            {
-                add("Int");
-                add(";");
-            }
-        };
-        interactions = new ArrayList<>();
-        interactions.add(new Interactions("Int",stacklist));
-        state = new State("ATRIBINT",interactions);
         this.states.add(state);
 
         stacklist = new ArrayList<>(){
@@ -232,8 +224,8 @@ public class Sintatico {
         interactions.add(new Interactions("id",stacklist));
         stacklist = new ArrayList<>(){
             {
-                add("if ");
-                add("( ");
+                add("if");
+                add("(");
                 add("EXP");
                 add(")");
                 add("{");
@@ -327,6 +319,22 @@ public class Sintatico {
 
         stacklist = new ArrayList<>(){
             {
+                add("Int");
+            }
+        };
+        interactions = new ArrayList<>();
+        interactions.add(new Interactions("Int",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("Double");
+            }
+        };
+        interactions.add(new Interactions("Double",stacklist));
+        state = new State("NUM",interactions);
+        this.states.add(state);
+
+        stacklist = new ArrayList<>(){
+            {
                 add("VAZIO");
             }
         };
@@ -379,10 +387,11 @@ public class Sintatico {
         interactions.add(new Interactions("Char",stacklist));
         stacklist = new ArrayList<>(){
             {
-                add("num");
+                add("NUM");
             }
         };
-        interactions.add(new Interactions("num",stacklist));
+        interactions.add(new Interactions("Int",stacklist));
+        interactions.add(new Interactions("Double",stacklist));
         state = new State("CASEFACT",interactions);
         this.states.add(state);
 
@@ -413,18 +422,18 @@ public class Sintatico {
         stacklist = new ArrayList<>(){
             {
                 add("+");
-                add("num");
+                add("NUM");
             }
         };
         interactions.add(new Interactions("+",stacklist));
         stacklist = new ArrayList<>(){
             {
                 add("-");
-                add("num");
+                add("NUM");
             }
         };
         interactions.add(new Interactions("-",stacklist));
-        state = new State("FORCOUNT",interactions);
+        state = new State("FORCOUNT'",interactions);
         this.states.add(state);
 
         stacklist = new ArrayList<>(){
@@ -449,7 +458,8 @@ public class Sintatico {
         interactions = new ArrayList<>();
         interactions.add(new Interactions("id",stacklist));
         interactions.add(new Interactions("(",stacklist));
-        interactions.add(new Interactions("num",stacklist));
+        interactions.add(new Interactions("Int",stacklist));
+        interactions.add(new Interactions("Double",stacklist));
         interactions.add(new Interactions("!",stacklist));
         state = new State("EXP",interactions);
         this.states.add(state);
@@ -517,10 +527,11 @@ public class Sintatico {
         interactions.add(new Interactions("(",stacklist));
         stacklist = new ArrayList<>(){
             {
-                add("num");
+                add("NUM");
             }
         };
-        interactions.add(new Interactions("num",stacklist));
+        interactions.add(new Interactions("Int",stacklist));
+        interactions.add(new Interactions("Double",stacklist));
         stacklist = new ArrayList<>(){
             {
                 add("!");
@@ -579,7 +590,7 @@ public class Sintatico {
                 add("^");
             }
         };
-        interactions.add(new Interactions("&&",stacklist));
+        interactions.add(new Interactions("^",stacklist));
         state = new State("OPL",interactions);
         this.states.add(state);
 
@@ -636,14 +647,77 @@ public class Sintatico {
             }
         };
         interactions = new ArrayList<>();
-        interactions.add(new Interactions("id",stacklist));
+        interactions.add(new Interactions("=",stacklist));
         state = new State("ATRIB'",interactions);
         this.states.add(state);
+
+
 
     }
 
     public void analize(){
-        Stack <String> pilha;
+        Stack <String> pilha = new Stack<>();
+        pilha.push("S");
+
+        int c =0;
+
+        while(!tokens.isEmpty()){
+            Token token = tokens.get(0);
+            String serchfor = new String();
+            if(token.getType().equals("Int")||token.getType().equals("Double")
+                    ||token.getType().equals("Char")||token.getType().equals("Bool")|| token.getType().equals("id")){
+                serchfor = token.getType();
+            }else {
+                serchfor = token.Value;
+            }
+            State selected = new State();
+
+            for(State state : this.states){
+                if(state.name.equals(pilha.peek())){
+                    selected = state;
+                    break;
+                }
+            }
+
+
+            for (Interactions interactions: selected.interactions){
+                if(interactions.terminal.equals(serchfor)){
+                    pilha.pop();
+                    for (int i=interactions.stackList.size()-1;i>=0;i--){
+                        pilha.push(interactions.stackList.get(i));
+                    }
+                    break;
+                }
+            }
+            System.out.print(pilha);
+            System.out.print("\t"+tokens.get(0).Value+"\n");
+
+            while (pilha.peek().equals(tokens.get(0).Value)||pilha.peek().equals(tokens.get(0).type)||pilha.peek().equals("VAZIO")){
+
+                if(pilha.peek().equals("VAZIO")) {
+                    pilha.pop();
+                } else {
+                    pilha.pop();
+                    tokens.remove(tokens.get(0));
+                }
+                if(tokens.isEmpty()&&pilha.empty()){
+                    System.out.println("Aceito");
+                    break;
+                }else if(pilha.empty()){
+                    System.out.println("P2 empty");
+                    System.out.println(pilha);
+                    break;
+                }else if(tokens.isEmpty()){
+                    System.out.println("tokens Enpty");
+                }
+                System.out.println(pilha+"\t"+tokens.get(0).Value);
+
+            }
+            c++;
+            if(c>100){
+                break;
+            }
+        }
 
     }
 

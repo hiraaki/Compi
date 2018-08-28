@@ -8,6 +8,9 @@ public class Main {
     public static void main(String[] args){
 
         Lex lex= new Lex("src/file.txt");
-        lex.getTokens();
+        lex.setTokens();
+        Sintatico sintatico = new Sintatico(lex.geTokens());
+        sintatico.analize();
+
     }
 }
