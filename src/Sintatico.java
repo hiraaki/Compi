@@ -682,6 +682,9 @@ public class Sintatico {
                 break;
             }
             boolean intnf = false;
+            /*
+            Verifica se o que está na pilha é um estado
+             */
             for (Interactions interactions: selected.interactions){
                 if(interactions.terminal.equals(serchfor)){
                     pilha.pop();
@@ -692,6 +695,9 @@ public class Sintatico {
                     break;
                 }
             }
+            /*
+            Se não for um estado, quer dizer que houve erro ao desenpilhar
+             */
             if(!intnf){
                 System.out.print("Eperado: ");
                 String spected = null;
@@ -699,7 +705,9 @@ public class Sintatico {
 //                    spected = (interactions.terminal);
 //                    System.out.print(spected+",");
 //                }
-
+                /*
+                Empilha
+                 */
                 for(Interactions interactions: selected.interactions){
                     if((selected.name=="STM")||(selected.name=="STM'")){
                         spected = interactions.terminal;
@@ -715,7 +723,9 @@ public class Sintatico {
             }
             System.out.print(pilha);
             System.out.print("\t"+tokens.get(0).Value+"\n");
-
+            /*
+            Redus
+             */
             while (pilha.peek().equals(tokens.get(0).Value)||pilha.peek().equals(tokens.get(0).type)||pilha.peek().equals("VAZIO")){
 
                 if(pilha.peek().equals("VAZIO")) {
@@ -728,8 +738,11 @@ public class Sintatico {
                     System.out.println("Aceito");
                     break;
                 }else if(pilha.empty()){
-                    System.out.println("P2 empty");
-                    System.out.println(pilha);
+                    System.out.println("Não Aceito:");
+                    for(Token t:tokens){
+                        System.out.println(t.Value);
+                    }
+                    System.out.println("Estão Fora do escopo");
                     break;
                 }else if(tokens.isEmpty()){
                     System.out.println("tokens Enpty");
@@ -737,8 +750,11 @@ public class Sintatico {
                 System.out.println(pilha+"\t"+tokens.get(0).Value);
 
             }
+            /*
+            Medida preventiva para erros.
+             */
             c++;
-            if(c>100){
+            if(c>200){
                 System.out.println("Não Aceito");
                 break;
             }

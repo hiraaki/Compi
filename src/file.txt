@@ -5,11 +5,11 @@ ProgramVar: {
 } ProgramBody begin {
     id1=id2 * 123;
     if( id && id ){
-        for ( int id = 1230 ; id < id ; id ++ ) {
+         for( int id =1230 ; id < id ; id ++ ) {
             id = id * id ;
         }
     } else {
-        while ( id > id ) {
+        while ( id+1 > id ) {
             id2 = (a * id) && ( a * b) ;
         }
     }

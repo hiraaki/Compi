@@ -27,7 +27,7 @@ TERM -> if ( EXP ) { STM } ELSESTM
 TERM -> switch ( id ) { CASETERM }
 TERM -> while ( EXP ) { STM }
 TERM -> for ( FORATRIB EXP ; FORCOUNT ) { STM }
-TERM -> print ( " char " , id ) ;
+TERM -> print ( char , id ) ;
 TERM -> scan ( TYPE , id ) ;
 
 TYPE -> int
@@ -41,14 +41,14 @@ ELSESTM -> ''
 
 CASETERM -> case: CASEFACT { STM }
 CASEFACT -> id
-CASEFACT -> num
+CASEFACT -> NUM
 CASEFACT -> Char
 
 FORCOUNT -> id FORCOUNT'
 FORCOUNT' -> --
 FORCOUNT' -> ++
-FORCOUNT' -> + num
-FORCOUNT' -> - num
+FORCOUNT' -> + NUM
+FORCOUNT' -> - NUM
 
 FORATRIB -> ASSTERM
 
@@ -60,7 +60,10 @@ EXP' -> ''
 EXPT -> ( EXP )
 EXPT -> ! ( EXP )
 EXPT -> id
-EXPT -> num
+EXPT -> NUM
+
+NUM -> Int
+NUM -> Double
 
 OPB -> +
 OPB -> -
