@@ -451,7 +451,6 @@ public class Sintatico {
         interactions.add(new Interactions("(",stacklist));
         interactions.add(new Interactions("num",stacklist));
         interactions.add(new Interactions("!",stacklist));
-        interactions.add(new Interactions("!",stacklist));
         state = new State("EXP",interactions);
         this.states.add(state);
 
@@ -471,9 +470,175 @@ public class Sintatico {
                 add("EXP'");
             }
         };
+        interactions.add(new Interactions("+",stacklist));
+        interactions.add(new Interactions("-",stacklist));
+        interactions.add(new Interactions("*",stacklist));
+        interactions.add(new Interactions("/",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("OPL");
+                add("EXPT");
+                add("EXP'");
+            }
+        };
+        interactions.add(new Interactions("||",stacklist));
+        interactions.add(new Interactions("&&",stacklist));
+        interactions.add(new Interactions("^",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("OPR");
+                add("EXPT");
+                add("EXP'");
+            }
+        };
+        interactions.add(new Interactions(">",stacklist));
+        interactions.add(new Interactions("<",stacklist));
+        interactions.add(new Interactions("==",stacklist));
+        interactions.add(new Interactions("!=",stacklist));
+        interactions.add(new Interactions(">=",stacklist));
+        interactions.add(new Interactions("<=",stacklist));
         state = new State("EXP'",interactions);
         this.states.add(state);
 
+        stacklist = new ArrayList<>(){
+            {
+                add("id");
+            }
+        };
+        interactions = new ArrayList<>();
+        interactions.add(new Interactions("id",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("(");
+                add("EXP");
+                add(")");
+            }
+        };
+        interactions.add(new Interactions("(",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("num");
+            }
+        };
+        interactions.add(new Interactions("num",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("!");
+                add("(");
+                add("EXP");
+                add(")");
+            }
+        };
+        interactions.add(new Interactions("!",stacklist));
+        state = new State("EXPT",interactions);
+        this.states.add(state);
+
+        stacklist = new ArrayList<>(){
+            {
+                add("+");
+            }
+        };
+        interactions=new ArrayList<>();
+        interactions.add(new Interactions("+",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("-");
+            }
+        };
+        interactions.add(new Interactions("-",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("*");
+            }
+        };
+        interactions.add(new Interactions("*",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("/");
+            }
+        };
+        interactions.add(new Interactions("/",stacklist));
+        state = new State("OPB",interactions);
+        this.states.add(state);
+
+        stacklist = new ArrayList<>(){
+            {
+                add("||");
+            }
+        };
+        interactions = new ArrayList<>();
+        interactions.add(new Interactions("||",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("&&");
+            }
+        };
+        interactions.add(new Interactions("&&",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("^");
+            }
+        };
+        interactions.add(new Interactions("&&",stacklist));
+        state = new State("OPL",interactions);
+        this.states.add(state);
+
+        stacklist = new ArrayList<>(){
+            {
+                add(">");
+            }
+        };
+        interactions = new ArrayList<>();
+        interactions.add(new Interactions(">",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("<");
+            }
+        };
+        interactions.add(new Interactions("<",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("==");
+            }
+        };
+        interactions.add(new Interactions("==",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add("!=");
+            }
+        };
+        interactions.add(new Interactions("!=",stacklist));
+        stacklist = new ArrayList<>(){
+            {
+                add(">=");
+            }
+        };
+        interactions.add(new Interactions(">=",stacklist));
+        state = new State("OPR",interactions);
+        this.states.add(state);
+
+        stacklist = new ArrayList<>(){
+            {
+                add("id");
+                add("ATRIB'");
+            }
+        };
+        interactions = new ArrayList<>();
+        interactions.add(new Interactions("id",stacklist));
+        state = new State("ATRIB",interactions);
+        this.states.add(state);
+
+        stacklist = new ArrayList<>(){
+            {
+                add("=");
+                add("EXP");
+                add(";");
+            }
+        };
+        interactions = new ArrayList<>();
+        interactions.add(new Interactions("id",stacklist));
+        state = new State("ATRIB'",interactions);
+        this.states.add(state);
 
     }
 
